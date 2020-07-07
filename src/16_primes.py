@@ -18,8 +18,9 @@ print(is_prime(49))#False
 # This could be made more efficient by only checking primes as potential factors.
 # However, finding a list of primes to use is non-trivial.
 
-# Sieve of Eratosthenes: two implementations
-# Both functions start by initializing a list of integers from 2 to the max (passed as an argument)
+# Sieve of Eratosthenes: three implementations
+# First two functions start by initializing a list of integers from 2 to the max (passed as an argument)
+# Third version uses an array of booleans, then returns an array of primes
 
 # sieve1 is slightly shorter, but moves primes from the initial array to a second array
 # (second array, of primes, is returned)
@@ -52,7 +53,24 @@ def sieve2(top):
             fact = top + 1
     return allnums
 
+#sieve3 is closer to the "CS version" of the algorithm
+def sieve3(top):
+    checklist = [False, False]
+    checklist2 = [True for i in range(top-1)]
+    # checklist[n] represents potential prime status of n
+    # for a non-prime number x or less, at least one factor will be <= sqrt(x):
+    ceiling = int(math.sqrt(top))
+    checklist.extend(checklist2)
+    for n in range(ceiling + 1):
+        if checklist[n]:
+            current = 2*n
+            while current <= top:
+                checklist[current] = False
+                current += n
+    return [x for x in range(top+1) if checklist[x]]
+
 #demonstration:
 maxallowed = 100
-# print(sieve1(maxallowed))
-# print(sieve2(maxallowed))
+print(sieve1(maxallowed))
+print(sieve2(maxallowed))
+print(sieve3(maxallowed))
