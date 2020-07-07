@@ -1,4 +1,5 @@
 import math
+import sys
 
 # is_prime: takes integer as argument, returns true if prime, false otherwise
 def is_prime(i):
@@ -11,9 +12,18 @@ def is_prime(i):
             fact += 1
     return True
 
-print(is_prime(11))#True
-print(is_prime(45))#False
-print(is_prime(49))#False
+if len(sys.argv) > 1:
+    if sys.argv[1].isdigit():
+        if is_prime(int(sys.argv[1])):
+            print(f"{sys.argv[1]} is prime.")
+        else:
+            print(f"{sys.argv[1]} is not prime.")
+    else:
+        print("Integer entry on command line only.")
+
+# print(is_prime(11))#True
+# print(is_prime(45))#False
+# print(is_prime(49))#False
 
 # This could be made more efficient by only checking primes as potential factors.
 # However, finding a list of primes to use is non-trivial.
